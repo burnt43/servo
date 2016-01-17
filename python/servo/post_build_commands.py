@@ -115,6 +115,8 @@ class PostBuildCommands(CommandBase):
             args = args + params
 
         try:
+            print("[JIM]: run, args=" + repr(args))
+            print("[JIM]: run, env=" + repr(env))
             subprocess.check_call(args, env=env)
         except subprocess.CalledProcessError as e:
             print("Servo exited with return value %d" % e.returncode)
