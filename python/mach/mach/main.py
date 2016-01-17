@@ -306,6 +306,8 @@ To see more help for a specific command, run:
         other values indicate failure.
         """
 
+        print("[JIM]: run, argv=" + repr(argv))
+
         # If no encoding is defined, we default to UTF-8 because without this
         # Python 2.7 will assume the default encoding of ASCII. This will blow
         # up with UnicodeEncodeError as soon as it encounters a non-ASCII
@@ -360,6 +362,7 @@ To see more help for a specific command, run:
             sys.stderr = orig_stderr
 
     def _run(self, argv):
+        print("[JIM]: _run, argv=" + repr(argv))
         context = CommandContext(cwd=self.cwd,
             settings=self.settings, log_manager=self.log_manager,
             commands=Registrar)
@@ -380,6 +383,7 @@ To see more help for a specific command, run:
 
         try:
             args = parser.parse_args(argv)
+            print("[JIM]: _run, args=" + repr(args))
         except NoCommandError:
             print(NO_COMMAND_ERROR)
             return 1
@@ -418,6 +422,7 @@ To see more help for a specific command, run:
             raise MachError('ArgumentParser result missing mach handler info.')
 
         handler = getattr(args, 'mach_handler')
+        print("[JIM]: _run, handler=" + repr(handler))
 
         try:
             return Registrar._run_command_handler(handler, context=context,

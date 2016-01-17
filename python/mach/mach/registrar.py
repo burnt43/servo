@@ -25,6 +25,7 @@ class MachRegistrar(object):
         self.require_conditions = False
 
     def register_command_handler(self, handler):
+        print("[JIM]: register_command_hanlder, CALLED")
         name = handler.name
 
         if not handler.category:
@@ -56,6 +57,7 @@ class MachRegistrar(object):
         return INVALID_COMMAND_CONTEXT % (name, '\n'.join(msg))
 
     def _run_command_handler(self, handler, context=None, debug_command=False, **kwargs):
+        print("[JIM]: _run_command_hanlder, CALLED")
         cls = handler.cls
 
         if handler.pass_context and not context:
@@ -82,6 +84,7 @@ class MachRegistrar(object):
                 return 1
 
         fn = getattr(instance, handler.method)
+        print("[JIM]: _run_command_hanlder, fn=" + repr(fn))
 
         if debug_command:
             import pdb
